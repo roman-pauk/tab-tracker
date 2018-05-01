@@ -23,11 +23,10 @@ export default {
   },
   methods: {
     async register () {
-      const responce = await Register.register({
+      await Register.register({
         email: this.email,
         password: this.password
       })
-      console.log(responce.data)
     }
   }
 }
