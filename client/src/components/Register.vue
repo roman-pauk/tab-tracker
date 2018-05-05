@@ -5,8 +5,9 @@
     <br>
     <input type="password" v-model="password" name="password" placeholder="enter password">
     <br>
+    <div class="errors">{{errors}}</div>
     <button @click="register">register</button>
-    
+
   </div>
 </template>
 
@@ -18,15 +19,20 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      errors: ''
     }
   },
   methods: {
     async register () {
-      await Register.register({
-        email: this.email,
-        password: this.password
-      })
+      try {
+        await Register.register({
+          email: this.email,
+          password: this.password
+        })
+      } catch (error) {
+        this.errors = error.response.data.error
+      }
     }
   }
 }
