@@ -4,7 +4,7 @@
       <v-flex lg5 md6 sm8 xs12>
         <div class="elevation-2">
         <v-toolbar color="cyan" dark flat>
-          <v-toolbar-title>Register</v-toolbar-title>
+          <v-toolbar-title>Log In</v-toolbar-title>
         </v-toolbar>
           <v-form v-model="valid" class="pt-4 pr-2 pl-2 pb-4">
             <v-text-field
@@ -26,8 +26,8 @@
             <div class="error">{{errors}}</div>
             <v-btn color="primary"
               :disabled="!valid"
-              @click="register"
-            >register</v-btn>
+              @click="login"
+            >log in</v-btn>
           </v-form>
         </div>
       </v-flex>
@@ -39,7 +39,7 @@
 import Register from '../servises/AutentificationServise'
 
 export default {
-  name: 'Register',
+  name: 'Login',
   data () {
     return {
       valid: false,
@@ -60,14 +60,15 @@ export default {
     }
   },
   methods: {
-    async register () {
+    async login () {
       this.errors = ''
       this.valid = true
       try {
-        const responce = await Register.register({
+        const responce = await Register.login({
           email: this.email,
           password: this.password
         })
+
         this.$store.dispatch('setToken', responce.data.token)
         this.$store.dispatch('setUser', responce.data.user)
       } catch (error) {

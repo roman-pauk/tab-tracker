@@ -9,7 +9,6 @@ module.exports = {
 
     Joi.validate(req.body, schema, (err) => {
       if (err) {
-        console.log('--------', err)
         switch (err.details[0].context.key) {
           case 'email':
             res.status(400).send({
@@ -23,10 +22,9 @@ module.exports = {
             break
           default:
             res.status(400).send({
-              error: 'invalid Registration'
+              error: 'invalid Data'
             })
         }
-        console.log(err.details[0].context)
       } else {
         next()
       }
